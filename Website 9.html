@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Logic - Ethical AI Solutions, Consulting & Education</title> <link rel="icon" href="https://i.imgur.com/xAILLA0.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/xAILLA0.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font globally */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Enables smooth scrolling for the whole page */
+        }
+
+        /* Enhanced gradient text animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #9333ea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            padding-bottom: 0.1em;
+            background-size: 200% auto;
+            animation: gradientShift 6s ease infinite;
+        }
+
+        /* Enhanced glow button styles */
+        .glow-button {
+            position: relative;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            background: #1e293b;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 0 10px rgba(147, 51, 234, 0);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, #3b82f6, #9333ea, #3b82f6, transparent);
+            animation: rotate 4s linear infinite;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .glow-button::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: #1e293b; /* slate-800 */
+            border-radius: 0.35rem;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .glow-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 30px 8px rgba(147, 51, 234, 0.7);
+        }
+        .glow-button:hover::before { opacity: 1; filter: blur(15px); }
+        .glow-button:hover::after { background: rgba(30, 41, 59, 0.8); } /* slate-800 with opacity */
+        .glow-button .button-glow {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(147, 51, 234, 0.8), transparent 70%); /* purple-600 */
+            border-radius: 0.5rem;
+            z-index: -1;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover .button-glow { opacity: 1; transform: scale(1.1); }
+
+        /* CTA button variant */
+        .cta-glow-button { padding: 1.25rem 3rem; font-size: 1.125rem; }
+        .cta-glow-button:hover { box-shadow: 0 0 30px 10px rgba(147, 51, 234, 0.8); } /* purple-600 */
+        .cta-glow-button::before {
+             background: conic-gradient(transparent, #3b82f6, #9333ea, #60a5fa, #9333ea, #3b82f6, transparent); /* Added a lighter blue */
+        }
+        .cta-glow-button:hover::before { filter: blur(20px); }
+
+        /* Pulse animation */
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.7); } /* purple-600 */
+            70% { box-shadow: 0 0 0 15px rgba(147, 51, 234, 0); } /* purple-600 with 0 opacity */
+            100% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0); } /* purple-600 with 0 opacity */
+        }
+
+        /* Glowing section styles */
+        .glow-section {
+            background: linear-gradient(135deg, #1e293b 0%, #111827 100%); /* slate-800 to gray-900 */
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-section:hover { box-shadow: 0 25px 50px -12px rgba(147, 51, 234, 0.3); } /* purple-600 */
+
+        /* Feature card styles */
+        .feature-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(147, 51, 234, 0.6);
+            box-shadow: 0 20px 25px -5px rgba(147, 51, 234, 0.3);
+        }
+
+        /* Glowing dot styles */
+        .glow-dot {
+            width: 10px; height: 10px;
+            background: #9333ea; /* purple-600 */
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px #9333ea; /* purple-600 */
+            animation: pulseDot 2s infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        /* Image container styles (Header) */
+        .image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Logo image styles (Header) */
+        .profile-image {
+            /* Reduced size to simulate cropping */
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        /* Circular light beam styles */
+        .light-beam {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #9333ea; /* purple-600 */
+            filter: blur(1px);
+            opacity: 0.8;
+            z-index: 1;
+            animation: rotateCircle 3s linear infinite;
+        }
+        @keyframes rotateCircle {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .image-container:hover .light-beam { animation-play-state: paused; }
+
+        /* Create multiple concentric circles */
+        .light-beam:nth-child(1) { 
+            width: 180px; height: 180px; 
+            animation-duration: 4s;
+            border-top-color: #8b5cf6; /* purple-500 */
+        }
+        .light-beam:nth-child(2) { 
+            width: 220px; height: 220px; 
+            animation-duration: 5s;
+            animation-direction: reverse;
+            border-top-color: #a855f7; /* purple-400 */
+        }
+        .light-beam:nth-child(3) { 
+            width: 160px; height: 160px; 
+            animation-duration: 3.5s;
+            border-top-color: #7e22ce; /* purple-700 */
+        }
+        .light-beam:nth-child(4) { 
+            width: 240px; height: 240px; 
+            animation-duration: 6s;
+            animation-direction: reverse;
+            border-top-color: #6d28d9; /* purple-600 */
+        }
+
+        /* Theme toggle styles */
+        .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px; }
+        .theme-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; }
+        .dark-btn { background-color: #1e293b; color: white; } /* slate-800 */
+        .light-btn { background-color: #f8fafc; color: #1e293b; } /* slate-50, slate-800 */
+        .theme-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+        .theme-btn.active { border-color: #9333ea; box-shadow: 0 0 15px rgba(147, 51, 234, 0.5); } /* purple-600 */
+
+        /* Light theme overrides */
+        body.light-theme { 
+            background-color: #f8fafc; 
+            color: #1e293b;
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0%, 
+                    rgba(59, 130, 246, 0.15) 20%, 
+                    rgba(147, 51, 234, 0.15) 50%,
+                    rgba(59, 130, 246, 0.15) 80%, 
+                    transparent 100%);
+            background-size: 600% 100%;
+            animation: streakAnimation 16s linear infinite;
+        } 
+        @keyframes streakAnimation {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+        .light-theme .glow-section { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); } 
+        .light-theme .glow-section:hover { box-shadow: 0 25px 50px -12px rgba(147, 51, 234, 0.2); } 
+        .light-theme .feature-card { background: rgba(248, 250, 252, 0.8); border: 1px solid rgba(147, 51, 234, 0.2); color: #334155; } 
+        .light-theme .feature-card h3 { color: #1e293b; } 
+        .light-theme .feature-card p { color: #475569; } 
+        .light-theme .glow-button { background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; } 
+        .light-theme .glow-button::after { background: #f8fafc; } 
+        .light-theme .glow-button:hover { background: #e2e8f0; } 
+        .light-theme .glow-button:hover::after { background: rgba(248, 250, 252, 0.8); } 
+        
+        .light-theme p, 
+        .light-theme li, 
+        .light-theme span:not(.gradient-text):not(.letter):not(.animated-phrase-inline), 
+        .light-theme .header-text-content p { 
+            color: #334155; 
+        }
+        .light-theme h1:not(.gradient-text):not(.letter), 
+        .light-theme h2:not(.gradient-text):not(.letter), 
+        .light-theme h3:not(.gradient-text):not(.letter) { 
+            color: #1e293b; 
+        }
+        .light-theme ul span { color: #334155; } 
+        .light-theme a { color: #7e22ce; } 
+        .light-theme a:hover { color: #581c87; } 
+
+        .light-theme .orbs-container { 
+            background: rgba(226, 232, 240, 0.3); 
+            border-color: rgba(147, 51, 234, 0.1); 
+        }
+        .light-theme #gen-ai-showcase .orbs-content { 
+            background: rgba(248, 250, 252, 0.65); /* Reduced opacity for orbs visibility */
+            border-color: rgba(147, 51, 234, 0.2); 
+        }
+        .light-theme #gen-ai-showcase .orbs-content h2, 
+        .light-theme #gen-ai-showcase .orbs-content p:not(#loadingIndicator p):not(#messageArea):not(#errorMessage1):not(#errorMessage2):not(.generated-image-container p) { 
+            color: #1e293b; 
+        }
+         .light-theme #gen-ai-showcase #loadingIndicator p,
+         .light-theme #gen-ai-showcase #messageArea,
+         .light-theme #gen-ai-showcase #errorMessage1,
+         .light-theme #gen-ai-showcase #errorMessage2 {
+            color: #c026d3; 
+         }
+         .light-theme #gen-ai-showcase .generated-image-container h3 {
+            color: #1e293b; 
+         }
+          .light-theme #gen-ai-showcase .generated-image-container p {
+            color: #475569; 
+         }
+
+        .light-theme .feature-card a { color: #7e22ce; } 
+        .light-theme .feature-card a:hover { color: #581c87; } 
+        .light-theme .warp-section h2:not(.gradient-text):not(.letter), 
+        .light-theme .warp-section p:not(:has(.animated-phrase-inline)), 
+        .light-theme .warp-section p .animated-phrase-inline span.letter 
+         { 
+            color: #1f2937; 
+        }
+        .light-theme .warp-section .glow-button { background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; }
+        .light-theme .warp-section .glow-button::after { background: #f8fafc; }
+        .light-theme .warp-section .glow-button:hover { background: #e2e8f0; }
+        .light-theme .warp-section .glow-button:hover::after { background: rgba(248, 250, 252, 0.8); }
+
+        /* Orbs container styles */
+        #gen-ai-showcase .orbs-container { 
+            position: relative; 
+            width: 100%; 
+            min-height: 500px; 
+            border-radius: 1rem; 
+            overflow: hidden; 
+            background: rgba(30, 41, 59, 0.2); 
+            border: 1px solid rgba(147, 51, 234, 0.2);
+        }
+        .orb { position: absolute; border-radius: 50%; filter: blur(5px); opacity: 0.8; animation: float 15s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(50px, 50px); } 50% { transform: translate(100px, -50px); } 75% { transform: translate(-50px, 50px); } }
+        @keyframes floatReverse { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-50px, -50px); } 50% { transform: translate(-100px, 50px); } 75% { transform: translate(50px, -50px); } }
+        @keyframes floatVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(80px); } }
+        @keyframes floatHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(80px); } }
+        
+        #gen-ai-showcase .orbs-content { 
+            position: relative; 
+            /* z-index: 10; REMOVED to allow orbs to be visible behind */
+            padding: 1rem; 
+            background: rgba(30, 41, 59, 0.5); 
+            backdrop-filter: blur(10px); 
+            border-radius: 0.5rem; 
+            margin: 1rem; 
+            border: 1px solid rgba(147, 51, 234, 0.2); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start;
+            align-items: center; 
+            text-align: center; 
+            min-height: calc(500px - 2rem); 
+            height: auto; 
+        }
+
+        /* Warp Effect Section */
+        .warp-section {
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #1e293b 0%, #111827 100%); 
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden; 
+        }
+        .warp-section:hover { box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3), 0 10px 10px -5px rgba(59, 130, 246, 0.2); } 
+        .warp-effect-container { 
+            padding: 0.5rem; 
+            position: relative; 
+            z-index: 1; 
+        }
+        .light-theme .warp-section { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03); } 
+        .light-theme .warp-section:hover { box-shadow: 0 20px 25px -5px rgba(96, 165, 250, 0.15), 0 10px 10px -5px rgba(96, 165, 250, 0.1); } 
+        
+        .letter {
+            display: inline-block;
+            position: relative; 
+            will-change: transform, opacity, color; 
+        }
+        .animated-phrase-inline {
+            display: inline-block; 
+        }
+
+        /* Responsive video container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            background: #000; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); 
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem; 
+        }
+
+        /* Contact Form Container Styles */
+        .contact-form-container {
+            background-color: rgba(30, 41, 59, 0.5); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(147, 51, 234, 0.2); 
+            border-radius: 0.75rem; 
+            padding: 2rem; 
+            margin-top: 2rem; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); 
+        }
+        .light-theme .contact-form-container {
+            background-color: rgba(248, 250, 252, 0.8); 
+            border: 1px solid rgba(147, 51, 234, 0.2); 
+        }
+        .light-theme .contact-form-container p { 
+             color: #334155; 
+        }
+        .light-theme .contact-form-container h3 {
+            color: #1e293b;
+        }
+         .light-theme .contact-form-container a {
+            color: #7e22ce;
+        }
+        .light-theme .contact-form-container a:hover {
+            color: #581c87;
+        }
+
+        .contact-form-container iframe {
+            width: 100%;
+            border-radius: 0.5rem; 
+        }
+
+        /* Back to Top Button Styles */
+        #backToTopBtn {
+            display: none; 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            z-index: 999; 
+            border: none; 
+            outline: none; 
+            background-color: #9333ea; 
+            color: white; 
+            cursor: pointer; 
+            padding: 12px 15px; 
+            border-radius: 50%; 
+            font-size: 18px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+        }
+
+        #backToTopBtn:hover {
+            background-color: #7e22ce; 
+        }
+
+        .light-theme #backToTopBtn {
+            background-color: #a855f7; 
+            color: white;
+        }
+
+        .light-theme #backToTopBtn:hover {
+            background-color: #9333ea; 
+        }
+
+        /* Styling for the line orbs */
+        .line-orb {
+            position: absolute;
+            width: 3px; 
+            height: 3px; 
+            background-color: #ede9fe; 
+            border-radius: 50%;
+            box-shadow: 0 0 4px 1.5px #ede9fe, 
+                         0 0 7px 2.5px rgba(192, 132, 252, 0.6); 
+            top: 50%;
+            transform: translateY(-50%);
+            animation: floatInLine 2.5s linear infinite alternate; 
+        }
+
+        @keyframes floatInLine {
+            0% {
+                left: 1px; 
+            }
+            100% {
+                left: calc(100% - 4px); 
+            }
+        }
+
+        /* Styles for image generation section */
+        #imagePrompt { /* Default dark mode styles */
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3); /* Default purple border */
+            color: white; 
+        }
+        .light-theme #imagePrompt {
+            color: #1e293b; /* Dark text for light theme */
+            border: 2px solid transparent; /* Make space for gradient border */
+            border-radius: 0.5rem; /* Tailwind's rounded-lg */
+            background-image: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), linear-gradient(90deg, #3b82f6, #8b5cf6, #9333ea); /* Inner bg, outer gradient */
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            /* Keep p-3 class for padding, or ensure padding here matches Tailwind's p-3 (0.75rem) */
+        }
+        #imagePrompt::placeholder { 
+            color: rgba(255,255,255,0.4);
+        }
+        .light-theme #imagePrompt::placeholder { 
+            color: rgba(0,0,0,0.4);
+        }
+
+        .generated-image-container {
+            background: rgba(255,255,255,0.05); 
+            border: 1px dashed rgba(147, 51, 234, 0.3); 
+            min-height: 256px; 
+        }
+        .light-theme .generated-image-container {
+            background: rgba(0,0,0,0.02); 
+            border: 1px dashed rgba(147, 51, 234, 0.3); 
+        }
+        .generated-image-container img {
+            max-width: 100%;
+            height: auto; 
+            max-height: 300px; 
+            object-fit: contain; 
+            border-radius: 0.5rem; 
+        }
+        .loader {
+            border: 5px solid #f3f3f3; 
+            border-top: 5px solid #9333ea; 
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        .light-theme .loader {
+            border: 5px solid #e0e0e0; 
+            border-top: 5px solid #a855f7; 
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="bg-slate-900 min-h-screen flex flex-col items-center p-4 md:p-8 transition-colors duration-300">
+
+    <div class="theme-toggle">
+        <div class="theme-btn dark-btn active" id="darkBtn" title="Switch to Dark Mode" aria-label="Switch to Dark Mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </div>
+        <div class="theme-btn light-btn" id="lightBtn" title="Switch to Light Mode" aria-label="Switch to Light Mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </div>
+    </div>
+
+    <main class="max-w-6xl w-full space-y-16 md:space-y-24 mt-16 mb-16">
+        <header class="flex flex-col items-center w-full gap-6 md:gap-8">
+            <div class="image-container">
+                <div class="light-beam"></div>
+                <div class="light-beam"></div>
+                <div class="light-beam"></div>
+                <div class="light-beam"></div>
+                <img src="https://i.imgur.com/xAILLA0.png" alt="Progress Logic Logo" class="profile-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/1e293b/ffffff?text=Logo';">
+            </div>
+
+            <div class="text-center header-text-content space-y-6">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-2 gradient-text tracking-tight">
+                    Progress Logic
+                </h1>
+                <p class="text-slate-300/90 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed font-medium">
+                    Pioneering Ethical AI to Empower Your Future. We provide transformative AI Safety Education, cutting-edge Generative AI Services, AI-Augmented Documentation, strategic AI Integration Consulting, and high-impact Landing Page Development—all built on trust and social responsibility.
+                </p>
+                <div class="flex gap-2 items-center w-full max-w-3xl mx-auto">
+                    <div class="relative h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full overflow-hidden flex-grow-[2]">
+                        <div class="line-orb"></div>
+                    </div>
+                    <div class="relative h-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full overflow-hidden flex-grow">
+                        <div class="line-orb"></div>
+                    </div>
+                    <div class="relative h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full overflow-hidden flex-grow-[2]">
+                        <div class="line-orb"></div>
+                    </div>
+                </div>
+            </div>
+
+            <nav id="main-nav" class="w-full flex justify-center pt-4">
+                <div id="main-nav-links" class="flex flex-wrap justify-center gap-4 md:gap-8">
+                    <a href="#ethical-ai" class="glow-button relative">
+                        <div class="button-glow"></div>
+                        Ethical AI & Impact
+                    </a>
+                    <a href="#services" class="glow-button relative">
+                        <div class="button-glow"></div>
+                        Our Services
+                    </a>
+                    <a href="#ai-safety" class="glow-button relative">
+                        <div class="button-glow"></div>
+                        AI Safety Education
+                    </a>
+                    <a href="#contact" class="glow-button relative">
+                        <div class="button-glow"></div>
+                        Contact Us
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <section id="ethical-ai" class="glow-section p-8 md:p-16 my-20 scroll-mt-20 relative overflow-hidden"> <div class="absolute inset-0 -z-10">
+                <div class="absolute top-0 left-0 w-32 h-32 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
+                <div class="absolute bottom-0 right-0 w-32 h-32 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+            </div>
+            <div class="text-center relative z-10">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    <span class="gradient-text tracking-tight">Innovate with Integrity,</span> Empower with AI
+                </h2>
+                <p class="text-slate-300/90 text-xl max-w-3xl mx-auto leading-relaxed">
+                    At Progress Logic, ethical AI is our bedrock. We champion AI solutions that augment human potential, fostering employee empowerment and effectiveness, not replacement. Our commitment to social good is demonstrated through impactful projects, such as developing critical policy manuals for organizations like <a href="http://www.addicthelp.org" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:text-purple-300 underline">National Addiction Resources (NAR)</a>, helping them achieve vital accreditations. We build trust through transparent, responsible AI that delivers real-world benefits.
+                </p>
+            </div>
+        </section>
+
+        <section id="services" class="my-16 scroll-mt-20"> <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                    Our <span class="gradient-text tracking-tight">Comprehensive AI Solutions</span>
+                </h2>
+                <p class="text-slate-300/90 text-xl max-w-3xl mx-auto leading-relaxed">
+                    Progress Logic offers a suite of services designed to help your organization harness the power of AI responsibly and effectively, empowering your employees and achieving your strategic goals.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card p-8 group hover:bg-gradient-to-br from-blue-500/10 to-purple-600/10 transition-all duration-300 flex flex-col">
+                    <div class="text-4xl mb-4 gradient-text font-bold tracking-tight">01</div>
+                    <h3 class="text-white font-bold mb-3 text-xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-blue-400 to-purple-500">AI Safety & Ethics Education</h3>
+                    <p class="text-slate-400/90 text-base leading-relaxed flex-grow">
+                        Impactful courses, potentially using Metahuman presenters and engaging "shock value" tactics for memorability, to promote responsible AI use and risk mitigation, especially vital for schools and organizations.
+                    </p>
+                    <a href="#ai-safety" class="glow-button mt-6 self-start text-sm py-2 px-4">Learn More</a>
+                </div>
+
+                <div class="feature-card p-8 group hover:bg-gradient-to-br from-blue-500/10 to-purple-600/10 transition-all duration-300 flex flex-col">
+                    <div class="text-4xl mb-4 gradient-text font-bold tracking-tight">02</div>
+                    <h3 class="text-white font-bold mb-3 text-xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-blue-400 to-purple-500">Generative AI Services</h3>
+                    <p class="text-slate-400/90 text-base leading-relaxed flex-grow">
+                        Cutting-edge image and video generation using advanced diffusion models (e.g., Stable Diffusion with ComfyUI expertise) for compelling marketing, content creation, and social media applications.
+                    </p>
+                   <a href="#gen-ai-showcase" class="glow-button mt-6 self-start text-sm py-2 px-4">See Examples</a> </div>
+
+                <div class="feature-card p-8 group hover:bg-gradient-to-br from-blue-500/10 to-purple-600/10 transition-all duration-300 flex flex-col">
+                    <div class="text-4xl mb-4 gradient-text font-bold tracking-tight">03</div>
+                    <h3 class="text-white font-bold mb-3 text-xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-blue-400 to-purple-500">AI-Powered Documentation</h3>
+                    <p class="text-slate-400/90 text-base leading-relaxed flex-grow">
+                        Save hundreds of hours and ensure compliance with our AI-Powered Documentation, creating accurate policy manuals effortlessly.
+                    </p>
+                       <a href="#contact-form-section" class="glow-button mt-6 self-start text-sm py-2 px-4">Boost Efficiency</a>
+                </div>
+
+                <div class="feature-card p-8 group hover:bg-gradient-to-br from-blue-500/10 to-purple-600/10 transition-all duration-300 flex flex-col">
+                    <div class="text-4xl mb-4 gradient-text font-bold tracking-tight">04</div>
+                    <h3 class="text-white font-bold mb-3 text-xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-blue-400 to-purple-500">AI Integration Consulting</h3>
+                    <p class="text-slate-400/90 text-base leading-relaxed flex-grow">
+                        Strategic advice for businesses on incorporating AI tools (agents, RAG systems, generative AI, documentation tools) into workflows for enhanced efficiency, accuracy, scalability, and employee empowerment.
+                    </p>
+                    <a href="#contact-form-section" class="glow-button mt-6 self-start text-sm py-2 px-4">Strategize Now</a>
+                </div>
+
+                <div class="feature-card p-8 group hover:bg-gradient-to-br from-blue-500/10 to-purple-600/10 transition-all duration-300 flex flex-col">
+                    <div class="text-4xl mb-4 gradient-text font-bold tracking-tight">05</div>
+                    <h3 class="text-white font-bold mb-3 text-xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-blue-400 to-purple-500">High-Conversion Web Design</h3>
+                    <p class="text-slate-400/90 text-base leading-relaxed flex-grow">
+                        Crafting aesthetically pleasing, high-converting landing pages using modern frameworks like Tailwind CSS, designed to capture attention and drive business growth.
+                    </p>
+                       <a href="#web-design-showcase" class="glow-button mt-6 self-start text-sm py-2 px-4">View Our Work</a> </div>
+               <div class="feature-card p-8 group bg-purple-600/10 hover:bg-purple-600/20 border-purple-500/50 transition-all duration-300 flex flex-col">
+                    <div class="text-4xl mb-4 gradient-text font-bold tracking-tight">★</div>
+                    <h3 class="text-white font-bold mb-3 text-xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-blue-400 to-purple-500">Employee Empowerment</h3>
+                    <p class="text-slate-300/90 text-base leading-relaxed flex-grow">
+                        Our core philosophy: AI should augment capabilities, reduce drudgery, enhance accuracy, and spark innovation—making employees smarter and more effective, not redundant.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gen-ai-showcase" class="my-16 scroll-mt-20">
+            <div class="orbs-container"> <div class="orbs-content"> <h2 class="text-3xl font-bold text-white mb-4">
+                        Unleash <span class="gradient-text">Next-Gen Creativity</span>
+                    </h2>
+                    <p class="text-slate-300 mb-6 max-w-xl px-4">
+Transform your marketing and content with our advanced Generative AI services. We utilize leading diffusion models to produce stunning, unique AI-generated imagery and video that captivates your audience and elevates your brand.                       </p>
+                    
+                    <div class="w-full max-w-xl mx-auto mb-6 px-4">
+                        <input type="text" id="imagePrompt" class="w-full p-3 rounded-lg text-base focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300" placeholder="e.g., A majestic lion wearing a crown in a fantasy forest">
+                    </div>
+
+                    <button id="generateImageBtn" class="glow-button relative pulse mb-8">
+                        <div class="button-glow"></div>
+                        Generate Images
+                    </button>
+                    
+                    <div id="loadingIndicator" class="hidden text-center my-4">
+                        <div class="loader"></div>
+                        <p class="text-slate-300 text-lg">Generating images, this may take a moment...</p>
+                    </div>
+                    
+                    <div id="messageArea" class="text-center my-4 text-red-400 px-4"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto px-4">
+                        <div class="generated-image-container p-4 rounded-lg flex flex-col items-center justify-start">
+                            <h3 class="text-xl font-semibold text-white mb-2">User Version</h3>
+                            <p class="text-sm text-slate-400 mb-3 text-center">A quicker, sometimes quirky attempt.</p>
+                            <img id="generatedImage1" src="https://placehold.co/400x300/1a202c/4a5568?text=Draft+Image" alt="Generated Draft Image" class="rounded-lg shadow-lg">
+                            <div id="errorMessage1" class="text-red-400 mt-2 text-sm"></div>
+                        </div>
+                        <div class="generated-image-container p-4 rounded-lg flex flex-col items-center justify-start">
+                             <h3 class="text-xl font-semibold text-white mb-2">The Project Logic Touch</h3>
+                             <p class="text-sm text-slate-400 mb-3 text-center">A more refined, high-quality generation.</p>
+                            <img id="generatedImage2" src="https://placehold.co/400x300/1a202c/4a5568?text=Polished+Image" alt="Generated Polished Image" class="rounded-lg shadow-lg">
+                            <div id="errorMessage2" class="text-red-400 mt-2 text-sm"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="ai-safety" class="glow-section p-6 md:p-12 my-16 scroll-mt-20"> <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+                <div class="lg:w-1/2 space-y-6 text-center lg:text-left">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white"> AI Safety & <span class="gradient-text">Ethical Education</span> </h2>
+                    <p class="text-slate-300">
+                        Navigating the AI landscape requires knowledge and foresight. Our AI Safety & Ethics Education programs are designed to empower individuals and organizations to use AI responsibly, understand its implications, and mitigate potential risks. We aim to make learning engaging and impactful, potentially using Metahuman presenters and memorable scenarios.
+                    </p>
+                    <ul class="space-y-4 inline-block lg:block text-left">
+                        <li class="flex items-center gap-3 text-slate-300"> <div class="glow-dot"></div> <span>Promoting Responsible AI Use</span> </li>
+                        <li class="flex items-center gap-3 text-slate-300"> <div class="glow-dot"></div> <span>Courses for Schools & Businesses</span> </li>
+                        <li class="flex items-center gap-3 text-slate-300"> <div class="glow-dot"></div> <span>Focus on Practical Application & Risk Mitigation</span> </li>
+                        <li class="flex items-center gap-3 text-slate-300"> <div class="glow-dot"></div> <span>Building AI Literacy for All</span> </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 w-full video-container"> <iframe width="560" height="315" src="https://www.youtube.com/embed/F4WZ_k0vUDM?si=YXejqR3ibHe9P7Jq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="web-design-showcase" class="warp-section my-16 p-6 md:p-12 scroll-mt-20"> 
+            <div class="warp-effect-container text-center">
+                <h2 id="web-design-title" class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Quality Web Design
+                </h2>
+                <p id="web-design-subtitle" class="text-slate-300 max-w-2xl mx-auto mb-8">
+                    Beyond aesthetics, we build high-converting landing pages. Using modern CSS and Javascript, Progress Logic crafts visually stunning, intuitive, and performance-optimized web experiences that effectively communicate your message and drive engagement. <br>Do we have your attention yet?
+                </p>
+                <a href="#contact-form-section" class="glow-button relative"> <div class="button-glow"></div> Discuss Your Web Project </a>
+            </div>
+        </section>
+
+        <section id="contact" class="text-center scroll-mt-20">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
+                Ready to <span class="gradient-text">Empower Your Organization</span> with Ethical AI?
+            </h2>
+            <p class="text-slate-300/90 text-xl max-w-3xl mx-auto leading-relaxed mb-8">
+                Let Progress Logic be your partner in navigating the AI landscape. From strategic consulting to impactful education and cutting-edge development, we're here to help you achieve more, responsibly.
+            </p>
+            <div id="contact-form-section" class="contact-form-container text-slate-300 scroll-mt-20">
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-6">Get in Touch</h3>
+                <p class="mb-4">You can reach us via email at <a href="mailto:info@progresslogic.ai" class="text-purple-400 hover:text-purple-300 underline">info@progresslogic.ai</a>, or use the form below.</p>
+                <p class="mb-6 text-sm text-slate-400"> </p>
+                
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScanb8xIjXQrVFJc9gISLoT5jUDUufyCfDsfi_qythfa9NWXQ/viewform?embedded=true" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-slate-400/80 py-12 border-t border-slate-800/50 mt-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-sm md:text-base">© <span id="year"></span> Progress Logic. All Rights Reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="mailto:info@progresslogic.ai" class="hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 text-xs text-slate-500/60">
+                Progress Logic: Your trusted partner for ethical AI solutions, employee empowerment, and positive societal impact. <br class="sm:hidden"> Proudly supporting <a href="http://www.addicthelp.org" target="_blank" rel="noopener noreferrer" class="text-purple-500 hover:text-purple-400">National Addiction Resources</a>.
+            </div>
+        </div>
+    </footer>
+
+    <button onclick="scrollToTop()" id="backToTopBtn" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Theme toggle functionality ---
+        const darkBtn = document.getElementById('darkBtn');
+        const lightBtn = document.getElementById('lightBtn');
+        const body = document.body;
+
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-theme');
+                darkBtn.classList.remove('active');
+                lightBtn.classList.add('active');
+                localStorage.setItem('theme', 'light'); 
+            } else {
+                body.classList.remove('light-theme');
+                darkBtn.classList.add('active');
+                lightBtn.classList.remove('active');
+                localStorage.setItem('theme', 'dark'); 
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(savedTheme || (prefersDark ? 'dark' : 'dark')); 
+
+        darkBtn.addEventListener('click', () => applyTheme('dark'));
+        lightBtn.addEventListener('click', () => applyTheme('light'));
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+             if (!localStorage.getItem('theme')) {
+                 applyTheme(event.matches ? 'dark' : 'light');
+             }
+        });
+
+        // --- Bouncing orbs functionality for #gen-ai-showcase ---
+        const genAiOrbsContainer = document.querySelector('#gen-ai-showcase .orbs-container');
+        const genAiOrbsContent = document.querySelector('#gen-ai-showcase .orbs-content');
+
+        if (genAiOrbsContainer && genAiOrbsContent) {
+            const colors = ['#3b82f6', '#60a5fa', '#9333ea', '#a855f7', '#c084fc'];
+            const animationNames = ['float', 'floatReverse', 'floatVertical', 'floatHorizontal'];
+            const maxOrbs = 15; 
+            let currentOrbCount = 0;
+
+            function createOrbForGenAi() {
+                if (currentOrbCount >= maxOrbs) return;
+                const orb = document.createElement('div');
+                orb.classList.add('orb');
+                const size = Math.random() * 25 + 8; 
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                let left = Math.random() * 95;
+                let top = Math.random() * 95;
+
+                if (genAiOrbsContainer.offsetWidth > 0 && genAiOrbsContainer.offsetHeight > 0) {
+                    left = Math.random() * (100 - (size / genAiOrbsContainer.offsetWidth * 100));
+                    top = Math.random() * (100 - (size / genAiOrbsContainer.offsetHeight * 100));
+                }
+
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const randomAnimation = animationNames[Math.floor(Math.random() * animationNames.length)];
+
+                orb.style.width = `${size}px`;
+                orb.style.height = `${size}px`;
+                orb.style.background = color;
+                orb.style.left = `${left}%`;
+                orb.style.top = `${top}%`;
+                orb.style.animationDuration = `${duration}s`;
+                orb.style.animationDelay = `${delay}s`;
+                orb.style.animationName = randomAnimation;
+                
+                genAiOrbsContainer.insertBefore(orb, genAiOrbsContent);
+                currentOrbCount++;
+            }
+            for (let i = 0; i < maxOrbs; i++) { createOrbForGenAi(); }
+        } else {
+            console.warn("#gen-ai-showcase .orbs-container or .orbs-content not found. Orb animation for this section disabled.");
+        }
+
+
+        // --- Smooth scrolling for anchor links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href && href.length > 1 && href.startsWith('#')) {
+                    try {
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            e.preventDefault();
+                            const offsetTop = targetElement.offsetTop - 80; 
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    } catch (error) {
+                        console.warn(`Smooth scroll target not found or invalid selector: ${href}`, error);
+                    }
+                } else if (href === "#") { 
+                     e.preventDefault(); 
+                }
+            });
+        });
+
+        // --- Back to Top Button Functionality ---
+        const backToTopButton = document.getElementById("backToTopBtn");
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                if (backToTopButton) backToTopButton.style.display = "block";
+            } else {
+                if (backToTopButton) backToTopButton.style.display = "none";
+            }
+        }
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // --- Stardust Text Animation ---
+        const stardustColors = [
+            '#FF5733', '#FFC300', '#DAF7A6', '#33FFBD', '#337EFF', '#C700FF', 
+            '#FF8D00', '#F9FF32', '#A8FF78', '#70FFD5', '#70A2FF', '#F070FF',
+            '#ff69b4', '#00ffff', '#7fffd4', '#f0e68c', '#dda0dd', '#ff7f50'
+        ];
+
+        function splitTextIntoSpans(element) {
+            if (!element || element.dataset.textSplit === 'true') {
+                return element ? Array.from(element.querySelectorAll('span.letter')) : [];
+            }
+            const text = element.textContent.trim(); 
+            element.innerHTML = ''; 
+            const spans = [];
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const span = document.createElement('span');
+                span.classList.add('letter');
+                if (char === ' ') {
+                    span.innerHTML = '&nbsp;'; 
+                } else {
+                    span.textContent = char;
+                }
+                spans.push(span);
+                element.appendChild(span);
+            }
+            element.dataset.textSplit = 'true'; 
+            return spans;
+        }
+        
+        let isAnimatingStardust = false; 
+
+        async function animateLetters(elements, isExploding) {
+            if (isAnimatingStardust && isExploding && elements.every(el => el.classList.contains('is-animating-stardust'))) return; 
+            
+            if(isExploding) {
+                elements.forEach(el => el.classList.add('is-animating-stardust'));
+                isAnimatingStardust = true; 
+            }
+
+            const animationPromises = [];
+
+            elements.forEach(element => {
+                const letterSpans = Array.from(element.querySelectorAll('span.letter'));
+                if (letterSpans.length === 0) return; 
+
+                letterSpans.forEach((span, index) => {
+                    const randomDelay = Math.random() * 500; 
+                    let keyframes;
+                    let options = {
+                        duration: 1500, 
+                        delay: randomDelay,
+                        fill: 'forwards' 
+                    };
+
+                    if (isExploding) {
+                        const randomX = (Math.random() - 0.5) * (element.offsetWidth * 0.6); 
+                        const randomY = (Math.random() - 0.5) * (element.offsetHeight * 1); 
+                        const randomRotate = (Math.random() - 0.5) * 720; 
+                        const randomScale = Math.random() * 1.2 + 0.3; 
+                        const randomColor = stardustColors[Math.floor(Math.random() * stardustColors.length)];
+                        
+                        keyframes = [
+                            { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1, color: 'inherit', offset: 0 },
+                            { opacity: 0.8, color: randomColor, offset: 0.3 + Math.random() * 0.4 }, 
+                            { transform: `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg) scale(${randomScale})`, opacity: 0, color: randomColor, offset: 1 }
+                        ];
+                        options.easing = 'cubic-bezier(0.6, -0.28, 0.735, 0.045)'; 
+                    } else { 
+                        const initialX = (Math.random() - 0.5) * (element.offsetWidth * 0.7);
+                        const initialY = (Math.random() - 0.5) * (element.offsetHeight * 1.2);
+                        const initialRotate = (Math.random() - 0.5) * 720;
+                        const initialScale = Math.random() * 1.2 + 0.3;
+                        const initialColor = stardustColors[Math.floor(Math.random() * stardustColors.length)];
+
+                        keyframes = [
+                            { transform: `translate(${initialX}px, ${initialY}px) rotate(${initialRotate}deg) scale(${initialScale})`, opacity: 0, color: initialColor, offset: 0 },
+                            { opacity: 0.8, color: initialColor, offset: 0.3 + Math.random() * 0.4 },
+                            { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1, color: 'inherit', offset: 1 }
+                        ];
+                        options.easing = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'; 
+                    }
+                    
+                    const animation = span.animate(keyframes, options);
+                    animationPromises.push(animation.finished);
+                });
+            });
+            
+            await Promise.all(animationPromises);
+
+            if (!isExploding) {
+                elements.forEach(el => el.classList.remove('is-animating-stardust'));
+                isAnimatingStardust = false; 
+            }
+        }
+
+        const webDesignTitle = document.getElementById('web-design-title');
+        const webDesignSubtitle = document.getElementById('web-design-subtitle');
+        const elementsToAnimateStardust = []; 
+
+        if (webDesignTitle) {
+            splitTextIntoSpans(webDesignTitle); 
+            elementsToAnimateStardust.push(webDesignTitle); 
+        }
+        
+        if (webDesignSubtitle) {
+            const fullText = webDesignSubtitle.innerHTML; 
+            const phraseToAnimate = "Do we have your attention yet?";
+            const attentionPhraseId = 'attention-phrase-span'; 
+
+            if (fullText.includes(phraseToAnimate)) {
+                const newHtml = fullText.replace(
+                    phraseToAnimate, 
+                    `<span id="${attentionPhraseId}" class="animated-phrase-inline">${phraseToAnimate}</span>`
+                );
+                webDesignSubtitle.innerHTML = newHtml;
+
+                const attentionPhraseSpan = document.getElementById(attentionPhraseId);
+                if (attentionPhraseSpan) {
+                    splitTextIntoSpans(attentionPhraseSpan); 
+                    elementsToAnimateStardust.push(attentionPhraseSpan); 
+                }
+            }
+        }
+        
+        if (elementsToAnimateStardust.length > 0) {
+            setTimeout(() => {
+                animateLetters(elementsToAnimateStardust, true).then(() => {
+                    setTimeout(() => {
+                        animateLetters(elementsToAnimateStardust, false);
+                    }, 1000); 
+                });
+            }, 2000); 
+
+            setInterval(() => {
+                if (isAnimatingStardust || elementsToAnimateStardust.some(el => el.classList.contains('is-animating-stardust'))) {
+                    return; 
+                }
+                animateLetters(elementsToAnimateStardust, true).then(() => {
+                    setTimeout(() => {
+                        animateLetters(elementsToAnimateStardust, false);
+                    }, 1000); 
+                });
+            }, 16000); 
+        }
+
+        // --- Gemini API Image Generation ---
+        const imagePromptInput = document.getElementById('imagePrompt');
+        const generateImageBtn = document.getElementById('generateImageBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const messageArea = document.getElementById('messageArea');
+        const generatedImage1 = document.getElementById('generatedImage1');
+        const generatedImage2 = document.getElementById('generatedImage2');
+        const errorMessage1 = document.getElementById('errorMessage1');
+        const errorMessage2 = document.getElementById('errorMessage2');
+        
+        const placeholderDark = 'https://placehold.co/400x300/1a202c/4a5568?text=Image+Here';
+        const placeholderLight = 'https://placehold.co/400x300/e2e8f0/a0aec0?text=Image+Here';
+        const generatingPlaceholderDark = 'https://placehold.co/400x300/1a202c/4a5568?text=Generating...';
+        const generatingPlaceholderLight = 'https://placehold.co/400x300/e2e8f0/a0aec0?text=Generating...';
+
+
+        function getCurrentPlaceholder(isGenerating = false) {
+            const isLightTheme = body.classList.contains('light-theme');
+            if (isGenerating) {
+                return isLightTheme ? generatingPlaceholderLight : generatingPlaceholderDark;
+            }
+            return isLightTheme ? placeholderLight : placeholderDark;
+        }
+        
+        generatedImage1.src = getCurrentPlaceholder();
+        generatedImage2.src = getCurrentPlaceholder();
+
+        async function generateImageWithGemini(prompt, isHighQuality) {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+            
+            let finalPrompt = prompt;
+            if (isHighQuality) {
+                finalPrompt = `${prompt}, extremely high quality, realistic, 4k, detailed, sharp focus, vibrant colors, professional photography`;
+            } else {
+                finalPrompt = `${prompt}, simple, quick sketch, concept art, some imperfections, loose style`;
+            }
+
+            const payload = {
+                instances: [{ prompt: finalPrompt }],
+                parameters: { sampleCount: 1 } 
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('API Error Response:', errorData);
+                    let errorMessage = `API request failed with status ${response.status}`;
+                    if (errorData.error && errorData.error.message) {
+                        errorMessage += `: ${errorData.error.message}`;
+                    }
+                    throw new Error(errorMessage);
+                }
+
+                const result = await response.json();
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    return `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                } else {
+                    console.error('Unexpected API response structure:', result);
+                    throw new Error('Could not retrieve image data from API response. Ensure the response format is as expected for imagen-3.0-generate-002.');
+                }
+            } catch (error) {
+                console.error('Error generating image with Gemini:', error);
+                return { error: error.message || 'An unknown error occurred during image generation.' };
+            }
+        }
+
+        generateImageBtn.addEventListener('click', async () => {
+            const promptText = imagePromptInput.value.trim();
+            if (!promptText) {
+                messageArea.textContent = 'Please enter a prompt to generate images.';
+                imagePromptInput.focus();
+                return;
+            }
+
+            loadingIndicator.classList.remove('hidden');
+            messageArea.textContent = ''; 
+            errorMessage1.textContent = '';
+            errorMessage2.textContent = '';
+            generatedImage1.src = getCurrentPlaceholder(true);
+            generatedImage2.src = getCurrentPlaceholder(true);
+            generateImageBtn.disabled = true;
+            generateImageBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+
+            try {
+                const image1Result = await generateImageWithGemini(promptText, false);
+                if (typeof image1Result === 'string') {
+                    generatedImage1.src = image1Result;
+                } else { 
+                    generatedImage1.src = getCurrentPlaceholder(); 
+                    errorMessage1.textContent = `Draft Image Error: ${image1Result.error}`;
+                }
+
+                const image2Result = await generateImageWithGemini(promptText, true);
+                 if (typeof image2Result === 'string') {
+                    generatedImage2.src = image2Result;
+                } else { 
+                    generatedImage2.src = getCurrentPlaceholder(); 
+                    errorMessage2.textContent = `Polished Image Error: ${image2Result.error}`;
+                }
+
+                if(typeof image1Result !== 'string' && typeof image2Result !== 'string'){
+                    messageArea.textContent = 'Both image generations failed. Please check the console for more details or try a different prompt.';
+                } else if (typeof image1Result !== 'string' || typeof image2Result !== 'string') {
+                    messageArea.textContent = 'One of the images could not be generated. Please check for specific error messages above.';
+                }
+
+
+            } catch (error) {
+                console.error("Overall image generation process error:", error);
+                messageArea.textContent = `An unexpected error occurred: ${error.message}`;
+                generatedImage1.src = getCurrentPlaceholder();
+                generatedImage2.src = getCurrentPlaceholder();
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                generateImageBtn.disabled = false;
+                generateImageBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
+
+        generatedImage1.onerror = function() {
+            this.src = getCurrentPlaceholder(); 
+            if(!errorMessage1.textContent) errorMessage1.textContent = 'Failed to load the draft image.';
+        };
+        generatedImage2.onerror = function() {
+            this.src = getCurrentPlaceholder(); 
+            if(!errorMessage2.textContent) errorMessage2.textContent = 'Failed to load the polished image.';
+        };
+        
+        darkBtn.addEventListener('click', () => {
+            if (generatedImage1.src.includes('placehold.co')) generatedImage1.src = getCurrentPlaceholder(generatedImage1.src.includes('Generating'));
+            if (generatedImage2.src.includes('placehold.co')) generatedImage2.src = getCurrentPlaceholder(generatedImage2.src.includes('Generating'));
+        });
+        lightBtn.addEventListener('click', () => {
+            if (generatedImage1.src.includes('placehold.co')) generatedImage1.src = getCurrentPlaceholder(generatedImage1.src.includes('Generating'));
+            if (generatedImage2.src.includes('placehold.co')) generatedImage2.src = getCurrentPlaceholder(generatedImage2.src.includes('Generating'));
+        });
+
+
+    </script>
+</body>
+</html>
