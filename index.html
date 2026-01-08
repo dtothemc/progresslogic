@@ -1086,8 +1086,10 @@ Transform your marketing and content with our advanced Generative AI services. W
         generatedImage2.src = getCurrentPlaceholder();
 
         async function generateImageWithGemini(prompt, isHighQuality) {
+            // Note: The system automatically provides the API key in this environment.
             const apiKey = "AIzaSyBzBhvqKnWfPz-oYRcKQngn1l_9Ghgm1_A"; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+            // Updated to use the correct model for this environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
             
             let finalPrompt = prompt;
             if (isHighQuality) {
@@ -1207,6 +1209,7 @@ Transform your marketing and content with our advanced Generative AI services. W
     </script>
 </body>
 </html>
+
 
 
 
